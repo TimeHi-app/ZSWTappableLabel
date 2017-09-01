@@ -69,6 +69,34 @@ typedef NS_ENUM(NSInteger, ZSWTappableLabelNotifyType) {
     return self;
 }
 
+- (void)setTextInsets:(UIEdgeInsets)textInsets
+{
+    _textInsets = textInsets;
+    [self invalidateIntrinsicContentSize];
+}
+
+- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines
+{
+    UIEdgeInsets insets = self.textInsets;
+    CGRect rect = [super textRectForBounds:UIEdgeInsetsInsetRect(bounds, insets)
+                    limitedToNumberOfLines:numberOfLines];
+    
+    if (self.text.length > 0) {
+        rect.size.width += (insets.left + insets.right);
+        rect.size.height += (insets.top + insets.bottom);
+    }
+    rect.origin.x    -= insets.left;
+    rect.origin.y    -= insets.top;
+    
+    
+    return rect;
+}
+
+- (void)drawTextInRect:(CGRect)rect
+{
+    [super drawTextInRect:UIEdgeInsetsInsetRect(rect, self.textInsets)];
+}
+
 - (void)tappableLabelCommonInit {
     self.userInteractionEnabled = YES;
     

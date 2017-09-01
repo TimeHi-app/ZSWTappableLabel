@@ -123,6 +123,8 @@ extern NSString *const ZSWTappableLabelTappableRegionAttributeName;
  */
 @property (null_resettable, nonatomic, copy) NSString *longPressAccessibilityActionName;
 
+@property (nonatomic, assign) UIEdgeInsets textInsets;
+
 @end
 
 NS_ASSUME_NONNULL_END
